@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+env/
+
+# C++ сборка
+x64/
+Debug/
+Release/
+*.dll
+*.exe
+*.pdb
+*.ilk
+*.exp
+*.lib
+
+# Конфиги и данные
+network_state.json
+*.env

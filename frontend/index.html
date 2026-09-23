@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Симулятор сетевого трафика</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Верхняя панель -->
+    <div id="topbar">
+        <button id="btn-step">Шаг +1ч</button>
+        <button id="btn-play">▶ Пуск</button>
+        <button id="btn-reset">⟲ Сброс</button>
+        <button id="btn-add" class="accent">+ Узел</button>
+        <span id="time-display">Time: 00:00, day 0</span>
+    </div>
+
+    <!-- Карта -->
+    <canvas id="canvas"></canvas>
+
+    <!-- Легенда -->
+    <div id="legend">
+        <div class="legend-item"><span class="dot" style="background:#4caf50"></span> Норма (&lt;50%)</div>
+        <div class="legend-item"><span class="dot" style="background:#ff9800"></span> Высокая (50–80%)</div>
+        <div class="legend-item"><span class="dot" style="background:#f44336"></span> Перегрузка (&gt;80%)</div>
+        <div class="legend-sep"></div>
+        <div class="legend-item"><span class="ring" style="border-color:#ffd700"></span> Core</div>
+        <div class="legend-item"><span class="ring" style="border-color:#4a90e2"></span> Distribution</div>
+        <div class="legend-item"><span class="ring" style="border-color:#50c878"></span> Access</div>
+        <div class="legend-item"><span class="ring" style="border-color:#888"></span> Subscriber</div>
+    </div>
+
+    <!-- Боковая панель узла -->
+    <div id="panel" class="hidden">
+        <div class="panel-header">
+            <span id="panel-title">Узел</span>
+            <button id="panel-close" class="icon-btn">×</button>
+        </div>
+        <div class="panel-body">
+            <div class="field"><label>IP:</label><span id="p-ip"></span></div>
+            <div class="field"><label>Тип:</label><span id="p-type"></span></div>
+            <div class="field"><label>Capacity:</label><span id="p-capacity"></span> Mbps</div>
+            <div class="field"><label>Нагрузка:</label><span id="p-load"></span> Mbps</div>
+            <div class="field"><label>Загрузка:</label><span id="p-percent"></span></div>
+            <div class="progress"><div id="p-bar"></div></div>
+            <div class="field"><label>Максимум:</label><span id="p-max"></span> Mbps</div>
+            <div class="field"><label>Родитель:</label><span id="p-parent"></span></div>
+            <div class="field"><label>Дети:</label><span id="p-children"></span></div>
+            <div class="field" style="flex-direction: column; align-items: flex-start;">
+                <label>Нагрузка за сутки:</label>
+                <canvas id="historyChart" width="280" height="120" style="margin-top: 8px;"></canvas>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button id="btn-delete-node" class="danger">Удалить узел</button>
+        </div>
+    </div>
+
+    <!-- Модальное окно добавления узла -->
+    <div id="modal" class="hidden">
+        <div class="modal-content">
+            <div class="panel-header">
+                <span>Добавить узел</span>
+                <button id="modal-close" class="icon-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <label>Тип:
+                    <select id="in-type">
+                        <option value="1">Distribution</option>
+                        <option value="2">Access</option>
+                        <option value="3">Subscriber</option>
+                    </select>
+                </label>
+                <label>IP: <input id="in-ip" placeholder="10.0.5.1" /></label>
+                <label>Capacity (Mbps): <input id="in-capacity" type="number" value="100" /></label>
+                <label>Родитель (IP): <input id="in-parent" placeholder="10.0.1.1" /></label>
+                <div id="modal-error" class="error"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-modal-cancel">Отмена</button>
+                <button id="btn-modal-create" class="accent">Создать</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
